@@ -1,13 +1,17 @@
 
-const productos =[];
+const productos =["papa","pepe"];
 
+
+     for (const producto of productos){
+         console.log(producto);
+     };
 
 function functionPrincipalSimulador(){
 
   let salir = false;
 
   console.log("LOG - ----------------------------------");
-  console.log("LOG - 0000 - INICIO PROCESO PRINCIPAL");
+  console.log("LOG - 0000 - PROCESO PRINCIPAL - INICIO");
   console.log("LOG - ----------------------------------"); 
 
   alert("Sistema de Productos");
@@ -44,7 +48,7 @@ function functionPrincipalSimulador(){
   } while (!salir);
 
   console.log("LOG - ----------------------------------");
-  console.log("LOG - 9999 - FIN PROCESO PRINCIPAL");
+  console.log("LOG - 9999 - PROCESO PRINCIPAL - FIN ");
   console.log("LOG - ----------------------------------");
 
 };
@@ -72,26 +76,40 @@ function seleccionarOpcionMenu(){
 };
 
 function ingresarArticulo(){
-  console.log("LOG - 0000 - INICIO PROCESO - ingresarArticulo");
-  console.log("LOG - 9999 - FIN PROCESO - ingresarArticulo");
+  console.log("LOG - 0000 - ingresarArticulo");
+  console.log("LOG - 9999 - ingresarArticulo");
 };
               
 function buscarArticulo(){
-  console.log("LOG - 0000 - INICIO PROCESO - buscarArticulo");
-  console.log("LOG - 9999 - FIN PROCESO - buscarArticulo");
+  console.log("LOG - 0000 - buscarArticulo");
+  console.log("LOG - 9999 - buscarArticulo");
 };
 
 function  modificarArticulo(){
-  console.log("LOG - 0000 - INICIO PROCESO - modificarArticulo");
-  console.log("LOG - 9999 - FIN PROCESO - modificarArticulo");
+  console.log("LOG - 0000 - modificarArticulo");
+  console.log("LOG - 9999 - modificarArticulo");
 };
 
 function eliminarArticulo(){
-  console.log("LOG - 0000 - INICIO PROCESO - modificarArticulo");
-  console.log("LOG - 9999 - FIN PROCESO - modificarArticulo");
+  console.log("LOG - 0000 - modificarArticulo");
+  console.log("LOG - 9999 - modificarArticulo");
 };
 
 function listarArticulos(){
-  console.log("LOG - 0000 - INICIO PROCESO - listarArticulos");
-  console.log("LOG - 9999 - FIN PROCESO - listarrArticulos");
+  let lista = "";
+  let i=1;
+  console.log("LOG - 0000 - listarArticulos");
+
+  if (productos.length == 0){
+     alert("No existen articulos para informar");
+  } else {
+     for (const producto of productos){
+         
+         lista = lista + i + "-" + producto + "\n";
+         i++;
+     };
+     console.log("LOG - 0010 - listarArticulos -\nLista de Articulos:\n" + lista);
+     alert("Lista de Articulos:\n" + lista);
+  };
+  console.log("LOG - 9999 - listarrArticulos");
 };
