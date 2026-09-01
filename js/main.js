@@ -1,20 +1,15 @@
 
-const productos =["papa","pepe"];
-
-
-     for (const producto of productos){
-         console.log(producto);
-     };
+const productos =["CLAVO","TUERCA","TORNILLO","ARANDELA","MARTILLO"];
 
 function functionPrincipalSimulador(){
-
-  let salir = false;
 
   console.log("LOG - ----------------------------------");
   console.log("LOG - 0000 - PROCESO PRINCIPAL - INICIO");
   console.log("LOG - ----------------------------------"); 
 
-  alert("Sistema de Productos");
+  let salir = false;
+
+  //alert("Sistema de Productos");
 
   do {
 
@@ -23,19 +18,19 @@ function functionPrincipalSimulador(){
                  alert("Debe ingresar un valor, vuelva a ingresar la opcion");
                  break;
             case 1:
-                 ingresarArticulo();
+                 ingresarArticuloMenu();
                  break;
             case 2:
-                 buscarArticulo();
+                 buscarArticuloMenu();
                  break;   
             case 3:
-                 modificarArticulo();
+                 modificarArticuloMenu();
                  break;   
             case 4:
-                 eliminarArticulo();
-                 break;   
+                 eliminarArticuloMenu();
+                 break; 
             case 5:
-                 listarArticulos();
+                 listarArticulosMenu();
                  break; 
             case 6:
                  salir = true;
@@ -43,7 +38,6 @@ function functionPrincipalSimulador(){
             default:
                  alert("Opcion invalida, vuelva a ingresar la opcion");
       };
-
 
   } while (!salir);
 
@@ -59,57 +53,259 @@ function seleccionarOpcionMenu(){
 
   console.log("LOG - SeleccionarOpcionMenu - 0000");
 
-  let opcionMenu = prompt("Seleccione opcion: \n" + 
-                          "1-Ingrese Articulo\n" +
-                          "2-Buscar Articulo\n" +
-                          "3-Modificar Articulo\n" +
-                          "4-Eliminar Articulo\n" +
-                          "5-Listar Articulos\n" +
-                          "6-Salida"
+  //let opcionMenu = prompt("Seleccione opcion: \n" + 
+  let opcionMenu = prompt("SISTEMA DE PRODUCTOS\n\n" + 
+                          "Seleccione opcion:\n" + 
+                          " 1-Ingrese Articulo\n" +
+                          " 2-Buscar Articulo\n" +
+                          " 3-Modificar Articulo\n" +
+                          " 4-Eliminar Articulo\n" +
+                          " 5-Listar Articulos\n" +
+                          " 6-Salida"
                          );
-  if (opcionMenu.length == 0)                         {
+                         
+  if (opcionMenu.length == 0){
      opcionMenu = 0;
   };
+
   console.log("LOG - seleccionarOpcionMenu - 0010 - opcionMenu = " + opcionMenu);
   console.log("LOG - seleccionarOpcionMenu - 9999");
+
   return parseInt(opcionMenu);     
 };
 
-function ingresarArticulo(){
-  console.log("LOG - 0000 - ingresarArticulo");
-  console.log("LOG - 9999 - ingresarArticulo");
+function ingresarArticuloMenu(){
+
+  console.log("LOG - ingresarArticuloMenu - 0000");
+
+  let articulo = ingresarArticuloValidado();
+  let orden = ingresarOrden();
+  console.log("orden: " + orden);
+  if (orden == "P"){
+      productos.unshift(articulo.toUpperCase());
+      console.log("unshift");
+  } else {
+      productos.push(articulo.toUpperCase());
+      console.log("push");
+  };
+  
+  console.log("LOG - ingresarArticuloMenu - 9999");
 };
-              
-function buscarArticulo(){
+
+function buscarArticuloMenu(){
+
   console.log("LOG - 0000 - buscarArticulo");
+
+  let articulo;
+  let salir;
+
+  do {    
+
+       articulo = prompt("(Buscar Articulo) - Nombre de articulo: ");
+ 
+       if (esNulo(articulo)) {
+                                    
+                  alert("Debe Ingresar un Valor");
+                  salir = false;
+      } else { 
+  
+             if (existeArticulo(articulo)){
+                 alert("El articulo " + articulo + ", SI existe, esta en la posicion " + (parseInt(obtenerIndiceArticulo(articulo))+1));
+             } else {
+                 alert("El articulo " + articulo + ", NO existe. ");
+             };    
+             salir = true;
+       };
+
+  } while (!salir);
+
   console.log("LOG - 9999 - buscarArticulo");
 };
 
-function  modificarArticulo(){
-  console.log("LOG - 0000 - modificarArticulo");
+function  modificarArticuloMenu(){
+
+  console.log("LOG - modificarArticulo - 0000");
+
+  let posicion;
+
+  do {    
+      posicion = prompt("(Modificar Articulo) - Ingrese la posicion: ");
+  } while (!validarPosicion);
+
+  let articulo = ingresarArticuloValidado();
+
+  productos.splice((posicion-1),1,articulo);
+  
   console.log("LOG - 9999 - modificarArticulo");
+
 };
 
-function eliminarArticulo(){
-  console.log("LOG - 0000 - modificarArticulo");
-  console.log("LOG - 9999 - modificarArticulo");
+function eliminarArticuloMenu(){
+  console.log("LOG - eliminarArticulo - 0000");
+  let articulo;
+  let indice;
+  let salir;
+
+  do {    
+
+       articulo = prompt("(Eliminar Articulo) - Nombre de articulo: ");
+ 
+       if (esNulo(articulo)) {                                    
+                  alert("(Eliminar Articulo) - Debe Ingresar un Valor");
+                  salir = false;
+      } else { 
+  
+             if (existeArticulo(articulo)){
+                 //alert("El articulo " + articulo + " SI existe, esta en la posicion " + (parseInt(obtenerIndiceArticulo(articulo))+1));
+                 indice = (parseInt(obtenerIndiceArticulo(articulo)));
+                 productos.splice(indice,1);
+                 salir = true;
+             } else {
+                 alert("(Eliminar Articulo) - El articulo " + articulo + " NO existe. ");
+                 salir = false;
+             };    
+       };
+  } while(!salir);
+
+  console.log("LOG - eliminarArticulo - 9999");
 };
 
-function listarArticulos(){
+
+function listarArticulosMenu(){
   let lista = "";
   let i=1;
-  console.log("LOG - 0000 - listarArticulos");
+  console.log("LOG - listarArticulos - 0000");
 
   if (productos.length == 0){
-     alert("No existen articulos para informar");
+     alert("(Listar Articulos) - No existen articulos para informar");
   } else {
      for (const producto of productos){
-         
          lista = lista + i + "-" + producto + "\n";
          i++;
      };
      console.log("LOG - 0010 - listarArticulos -\nLista de Articulos:\n" + lista);
-     alert("Lista de Articulos:\n" + lista);
+     alert("(Listar Articulos) - Lista de Articulos:\n" + lista);
   };
-  console.log("LOG - 9999 - listarrArticulos");
+  console.log("LOG - listarArticulos - 9999");
+};
+
+
+function ingresarArticuloValidado(){
+
+  console.log("LOG - ingresarArticulo - 0000");
+
+  let articulo;
+
+  do {
+       articulo = prompt("(Ingresar Articulo) - Nombre de articulo: ");      
+  } while(!validarArticulo(articulo));
+
+  console.log("LOG - ingresarArticulo - 9999");
+
+  return articulo;
+};
+
+function validarArticulo(articulo){
+
+  console.log("LOG - validarArticulo - 0000");
+
+  if (esNulo(articulo)) {
+     alert("(Validar Articulo) - Debe ingresar un valor.");   
+     return false;       
+  } else {
+          if (existeArticulo(articulo)){
+             alert("(Validar Articulo) - El articulo " + articulo.toUpperCase() + " ya existe.");
+             return false;
+          } else {
+             return true;
+          };
+  };
+
+  console.log("LOG - validarArticulo - 9999");
+
+};
+
+function ingresarOrden(){
+
+  console.log("LOG - ingresarOrden - 0000");
+
+  let orden;
+
+  do {
+       orden = prompt("(Ingresar Articulo) - Ingrese el orden del articulo, al principio(P) o al final(F)?");
+  } while (!validarOrden(orden));
+
+  console.log("LOG - ingresarOrden - 9999");
+
+  return orden;
+};
+
+function validarOrden(orden){
+  console.log("LOG - validarOrden - 0000");
+  if (esNulo(orden)) {
+       alert("(Valida Orden) - Debe Ingresar un Valor");                    
+  } else { 
+                    
+          switch(orden.toUpperCase()){
+                case "P":
+                    return true;
+                    break;
+                case "F":
+                    return true;
+                    break;
+                default:
+                    alert("(Valida Orden) - Opcion incorrecta, vuelva a ingresar.");
+                    return false;
+          };
+
+  };
+    
+  console.log("LOG - validarOrden - 9999");
+};
+
+
+
+function validarPosicion(posicion){
+
+  if (esNulo(posicion)) { 
+         alert("(Validar Articulo) - ERROR: Debe ingresar un valor");
+         return false;
+  } else { 
+          if (esString(posicion)) {
+             alert("(Validar Articulo) - ERROR: Debe ingresar un valor numerico, este valor es erroneo: " + posicion);
+             return false;
+          } else { 
+                  if (parseInt(posicion) <= 0 ) {
+                      alert("(Validar Articulo) - ERROR: Debe ingresar un valor numerico positivo, este valor es erroneo: " + posicion);
+                      return false;
+                  }; 
+                  if (parseInt(posicion) > productos.length){
+                      alert("(Validar Articulo) - Debe ingresar una posicion valida, la ultima posicion es " + productos.length + ", este valor es erroneo: " + posicion);
+                      return false;
+                  };
+          };
+          return true;
+ };
+ 
+};
+
+
+function esNulo(valor){
+  if(valor.length == 0){return true}; return false;
+};
+
+function esString(valor){
+  if (isNaN(Number(valor))) {return true}; return false;
+};
+
+function existeArticulo(articulo){
+  if (productos.includes(articulo.toUpperCase())){ return true}; return false;
+};
+
+function obtenerIndiceArticulo(articulo){
+  return parseInt(productos.indexOf(articulo.toUpperCase()));
+};
+
+function obtenerArticuloPorIndice(indice){
+  return productos[indice];
 };
