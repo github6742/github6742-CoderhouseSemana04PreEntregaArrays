@@ -1,6 +1,7 @@
-
+// array inicial de productos
 const productos =["CLAVO","TUERCA","TORNILLO","ARANDELA","MARTILLO"];
 
+// funcion principal
 function functionPrincipalSimulador(){
 
   console.log("LOG - ----------------------------------");
@@ -8,8 +9,6 @@ function functionPrincipalSimulador(){
   console.log("LOG - ----------------------------------"); 
 
   let salir = false;
-
-  //alert("Sistema de Productos");
 
   do {
 
@@ -47,8 +46,13 @@ function functionPrincipalSimulador(){
 
 };
 
+
+// ejecuta la funcion principal
 functionPrincipalSimulador();
 
+/*
+  FUNCIONES PRIMARIAS
+*/
 function seleccionarOpcionMenu(){
 
   console.log("LOG - SeleccionarOpcionMenu - 0000");
@@ -189,7 +193,9 @@ function listarArticulosMenu(){
   console.log("LOG - listarArticulos - 9999");
 };
 
-
+/*
+  FUNCIONES DE SEGUNDO NIVEL
+*/
 function ingresarArticuloValidado(){
 
   console.log("LOG - ingresarArticulo - 0000");
@@ -289,7 +295,9 @@ function validarPosicion(posicion){
  
 };
 
-
+/*
+  FUNCIONES MAS ATOMIZADAS
+*/
 function esNulo(valor){
   if(valor.length == 0){return true}; return false;
 };
