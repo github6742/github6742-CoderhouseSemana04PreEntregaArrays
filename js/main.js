@@ -27,11 +27,17 @@ function functionPrincipalSimulador(){
                  break;   
             case 4:
                  eliminarArticuloMenu();
-                 break; 
+                 break;   
             case 5:
+                 eliminarArticuloPrimeroMenu();
+                 break;   
+            case 6:
+                 eliminarArticuloUltimoMenu();
+                 break; 
+            case 7:
                  listarArticulosMenu();
                  break; 
-            case 6:
+            case 8:
                  salir = true;
                  break;
             default:
@@ -63,16 +69,18 @@ function seleccionarOpcionMenu(){
                           " 1-Ingrese Articulo\n" +
                           " 2-Buscar Articulo\n" +
                           " 3-Modificar Articulo\n" +
-                          " 4-Eliminar Articulo\n" +
-                          " 5-Listar Articulos\n" +
-                          " 6-Salida"
+                          " 4-Eliminar Articulo por Posicion\n" +
+                          " 5-Eliminar Primer Articulo\n" +
+                          " 6-Eliminar Ultimo Articulo\n" +
+                          " 7-Listar Articulos\n" +
+                          " 8-Salida"
                          );
-                         
-  if (opcionMenu.length == 0){
+  console.log("LOG - seleccionarOpcionMenu - 0010 - opcionMenu = " + opcionMenu);
+  
+  if (esNulo(opcionMenu)){
      opcionMenu = 0;
   };
 
-  console.log("LOG - seleccionarOpcionMenu - 0010 - opcionMenu = " + opcionMenu);
   console.log("LOG - seleccionarOpcionMenu - 9999");
 
   return parseInt(opcionMenu);     
@@ -134,13 +142,13 @@ function  modificarArticuloMenu(){
 
   do {    
       posicion = prompt("(Modificar Articulo) - Ingrese la posicion: ");
-  } while (!validarPosicion);
+  } while (!validarPosicion(posicion));
 
   let articulo = ingresarArticuloValidado();
 
   productos.splice((posicion-1),1,articulo);
   
-  console.log("LOG - 9999 - modificarArticulo");
+  console.log("LOG - modificarArticulo - 9999 ");
 
 };
 
@@ -174,6 +182,33 @@ function eliminarArticuloMenu(){
   console.log("LOG - eliminarArticulo - 9999");
 };
 
+function eliminarArticuloPrimeroMenu(){
+  console.log("LOG - eliminarArticuloPrimeroMenu - 0000");
+  
+  
+  if (productos.length == 0){
+    alert("No existen productos en la lista");
+  } else {
+    let nombreArticulo = productos[0];
+    productos.shift();
+    alert ("Se ha eliminado el articulo "  + nombreArticulo + " de la primer posicion");
+    console.log("LOG - eliminarArticuloPrimeroMenu - 9999");
+  };
+};
+
+function eliminarArticuloUltimoMenu(){
+  console.log("LOG - eliminarArticuloUltimoMenu - 0000");
+  
+  if (productos.length == 0){
+    alert("No existen productos en la lista");
+  } else {
+    let nombreArticulo = productos[productos.length-1];
+    productos.pop();
+   alert ("Se ha eliminado el articulo "  + nombreArticulo + " de la ultima posicion");
+  };
+
+  console.log("LOG - eliminarArticuloUltimoMenu - 9999");
+};
 
 function listarArticulosMenu(){
   let lista = "";
@@ -299,7 +334,8 @@ function validarPosicion(posicion){
   FUNCIONES MAS ATOMIZADAS
 */
 function esNulo(valor){
-  if(valor.length == 0){return true}; return false;
+  //if(valor.length == 0){return true}; return false;
+  if(valor == null){return true}; return false;
 };
 
 function esString(valor){
